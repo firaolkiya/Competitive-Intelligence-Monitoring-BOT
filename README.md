@@ -38,9 +38,7 @@ A fully automated competitive intelligence tool for **e-commerce analysis**, bui
 | Logging         | [Rich](https://github.com/Textualize/rich)                                       |
 
 ---
-
 ## 📁 Project Structure
-
 ```bash
 app/
 ├── dashboard/
@@ -58,3 +56,96 @@ app/
 ├── email/
 │   └── email_service.py       # 📬 Gmail service setup
 └── main.py                    # 🧠 Entrypoint script
+
+```
+## ⚙️ Setup Instructions
+💡 Make sure to use Python 3.12+ and set up Google & Gemini credentials beforehand.
+
+#### 1. Clone the Repository
+bash
+Copy
+Edit
+git clone https://github.com/your-username/competitive-intelligence-bot.git
+cd competitive-intelligence-bot
+#### 2. Create a Virtual Environment
+```bash
+python3 -m venv env
+source env/bin/activate
+```
+#### 3. Install Requirements
+```bash
+pip install -r requirements.txt
+```
+#### 4. Add Config Files
+Place .env with your keys:
+```
+GEMINI_API_KEY=your_key_here
+GOOGLE_SHEET_ID=your_sheet_id_here
+
+Place token.json and credentials.json from Google Cloud in /config
+```
+### ▶️ How to Use
+🔄 Run Full Automation
+```bash
+python3 app/main.py
+```
+📊 Launch Dashboard
+
+```bash
+streamlit run app/dashboard/ui.py
+```
+✨ Example Output (Console)
+```
+🟢 Script is running...
+📰 Collecting News .............
+✅ eBay News Collected
+✅ Walmart News Collected
+🧠 Analyzing with Gemini...
+✅ News Summary Saved
+📩 Sending Emails...
+✅ Messages sent to 4 members
+🛒 Scraping Product Listings...
+✅ Walmart & eBay products scraped
+📈 Updating Google Sheet...
+✅ Report Generated & Sent
+🎉 Finished.
+```
+🧠 Sample Email
+```
+Subject: Products Summary
+
+Gemini AI Report:
+
+📌 Walmart added 3 new products in the electronics category.
+📌 eBay introduced 5 limited edition collectibles.
+📈 Market trends suggest rising demand for gaming accessories...
+```
+
+## 🔐 Advanced Features
+✅ Retry logic on failed scraping
+
+✅ Future proxy support for Amazon, BestBuy, etc.
+
+🔄 Modular structure for easy extension
+
+## 🔮 Roadmap
+ eBay/Walmart scraping
+
+ Gemini AI integration
+
+ Email dispatch
+
+ Google Sheet sync
+
+ Streamlit dashboard
+
+ Proxy & rotating IP support
+
+ Slack/Telegram bot integration
+
+ CSV export & analytics charts
+
+## 🙋‍♂️ Author
+Firaol Bulo
+🎓 Software Engineer
+🧠 Python Developer
