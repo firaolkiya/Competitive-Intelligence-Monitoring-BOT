@@ -1,10 +1,15 @@
 from playwright.async_api import async_playwright,Page
 import random
 import asyncio
+import json
 
 walProductListing="https://www.walmart.com/search?q=keyword"
 ebayProductListing="https://www.ebay.com/sch/i.html?_nkw=keyword"
 bestbuyProductListing="https://www.bestbuy.com/site/searchpage.jsp?"
+
+PRODUCTS_WALMART = "app/data/walmart_products.json"
+LOG_FILE = "logs/output.log"
+PRODUCTS_EBAY = "app/data/ebay_products.json"
 
 
 async def human_hold(page: Page, hold_sec: float = 4.0):
@@ -40,61 +45,80 @@ async def human_hold(page: Page, hold_sec: float = 4.0):
         print("unable find challege")
 
 async def scrape_walmart_products(page:Page):
+       try:
         # Wait for product tiles to appear
-        await page.goto(walProductListing) 
-        await page.wait_for_selector('[data-automation-id="product-title"]')
+            await page.goto(walProductListing) 
+            await page.wait_for_selector('[data-automation-id="product-title"]')
 
-        # Get all product containers
-        products = await page.query_selector_all('[role="group"][data-item-id]')
+            # Get all product containers
+            products = await page.query_selector_all('[role="group"][data-item-id]')
 
-        response=[]
-            
-        for product in products:
-            try:
-                # Title
-                title_el = await product.query_selector('[data-automation-id="product-title"]')
-                title = await title_el.inner_text() if title_el else "N/A"
+            response=[]
+                
+            for product in products:
+                if len(response)==20:
+                    break
+                try:
+                    # Title
+                    title_el = await product.query_selector('[data-automation-id="product-title"]')
+                    title = await title_el.inner_text() if title_el else "N/A"
 
-                # Price
-                price_el = await product.query_selector('[data-automation-id="product-price"]')
-                price = await price_el.inner_text() if price_el else "N/A"
+                    # Price
+                    price_el = await product.query_selector('[data-automation-id="product-price"]')
+                    price = await price_el.inner_text() if price_el else "N/A"
 
-                # Image
-                img_el = await product.query_selector('[data-testid="productTileImage"]')
-                img_url = await img_el.get_attribute("src") if img_el else "N/A"
+                    # Image
+                    img_el = await product.query_selector('[data-testid="productTileImage"]')
+                    img_url = await img_el.get_attribute("src") if img_el else "N/A"
 
-                # Product URL
-                link_el = await product.query_selector('a[href*="/ip/"]')
-                href = await link_el.get_attribute("href") if link_el else "N/A"
-                full_url = f"https://www.walmart.com{href}" if href else "N/A"
-                data=[title,price,img_url,full_url]
-                response.append(data)
-                return response
-            except Exception as e:
-                print("Error parsing product:", e)
+                    # Product URL
+                    link_el = await product.query_selector('a[href*="/ip/"]')
+                    href = await link_el.get_attribute("href") if link_el else "N/A"
+                    full_url = f"https://www.walmart.com{href}" if href else "N/A"
+                    data=[title,price,"Walmart",img_url,full_url]
+                    response.append(data)
+                    
+                except Exception as e:
+                    print("Something went wrong.")
+                    return []
+            return response
+        
+       except Exception as e:
+           with open(LOG_FILE,'a') as f:
+               f.write(str(e))
+           return []
 
 async def scrape_ebay_products(page:Page):
         # Wait for product tiles to appear
-        await page.goto(ebayProductListing) 
-        await page.wait_for_selector('.s-item__info')
+        try:
+            await page.goto(ebayProductListing) 
+            await page.wait_for_selector('.s-item__info')
 
-        # Get all product containers
-        await page.wait_for_selector('li.s-item[data-view*="iid:"]')
+            # Get all product containers
+            await page.wait_for_selector('li.s-item[data-view*="iid:"]')
 
-        products = await page.query_selector_all('li.s-item[data-view*="iid:"]')
-        print(f"Found {len(products)} products")
-        response = []
-        for item in products:
-            title_el = await item.query_selector(".s-item__title")
-            price_el = await item.query_selector(".s-item__price")
-            link_el  = await item.query_selector("a.s-item__link")
-            img_el   = await item.query_selector(".s-item__image img")
+            products = await page.query_selector_all('li.s-item[data-view*="iid:"]')
+            print(f"Found {len(products)} products")
+            response = []
+            for item in products:
+                if len(response)==20:
+                    break
+                title_el = await item.query_selector(".s-item__title")
+                price_el = await item.query_selector(".s-item__price")
+                link_el  = await item.query_selector("a.s-item__link")
+                img_el   = await item.query_selector(".s-item__image img")
 
-            title = await title_el.inner_text()  if title_el else "N/A"
-            price = await price_el.inner_text()  if price_el else "N/A"
-            href  = await link_el.get_attribute("href") if link_el else "N/A"
-            img   = await img_el.get_attribute("src")   if img_el else "N/A"
-            response.append([title,price,href,img])
-        return response
+                title = await title_el.inner_text()  if title_el else "N/A"
+                price = await price_el.inner_text()  if price_el else "N/A"
+                href  = await link_el.get_attribute("href") if link_el else "N/A"
+                img   = await img_el.get_attribute("src")   if img_el else "N/A"
+                response.append([title,price,"Ebay",href,img])
+        
+            return response 
+        except Exception as e:
+            with open(LOG_FILE,'a') as f:
+               f.write(str(e))
+            print("Something went wrong.")
+            return []
             
 

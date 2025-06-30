@@ -80,6 +80,7 @@ async def scrape_bestbuy_news(driver):
         if descr!="":
             news1.append(descr)
     recent_news="\n".join(news1)
+    
     return recent_news
 
 

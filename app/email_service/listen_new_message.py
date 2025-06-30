@@ -2,8 +2,8 @@
 import json
 from google.cloud import pubsub_v1
 import os
-from manage_cursor import save_cursor,load_cursor
-from read_message import fetch_new_messages
+from email_service.manage_cursor import save_cursor,load_cursor
+from email_service.read_message import fetch_new_messages
 from dotenv import load_dotenv
 
 load_dotenv()

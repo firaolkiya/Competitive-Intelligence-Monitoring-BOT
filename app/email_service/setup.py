@@ -4,14 +4,19 @@ import os
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google.oauth2.credentials import Credentials
-from .listen_new_message import start_pubsub_listener
+from email_service.listen_new_message import start_pubsub_listener
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
 topic_name=os.getenv("topic_name")
-SCOPES =os.getenv("SCOPES")
+SCOPES = [
+    "https://www.googleapis.com/auth/gmail.send",   
+    "https://www.googleapis.com/auth/gmail.compose",  
+    "https://www.googleapis.com/auth/gmail.readonly",   
+    "https://www.googleapis.com/auth/gmail.modify"
+    ]
 
 
 def get_service():

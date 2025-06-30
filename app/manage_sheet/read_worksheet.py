@@ -1,4 +1,8 @@
-from worksheet import get_worksheet 
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
+from app.manage_sheet.worksheet import get_worksheet 
 
 def read_rows(SHEET_ID):
     ws = get_worksheet(SHEET_ID)
@@ -12,7 +16,7 @@ def read_rows(SHEET_ID):
 
     
     results = [dict(zip(header, row)) for row in data_rows]
-    print(results)
+    # print(results)
     return results
 
 
