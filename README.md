@@ -1,144 +1,60 @@
-📊 Competitive Intelligence Monitoring BOT
-An automated competitive intelligence tool that monitors major e-commerce platforms like eBay and Walmart for:
+<h1 align="center">🕵️‍♂️ Competitive Intelligence Monitoring BOT</h1>
 
-✅ Latest News
-✅ New Product Listings
-✅ Product Trends
+<p align="center">
+  <b>Track competitors like a pro — with automation, AI, and elegance.</b><br>
+  📰 eCommerce news • 🛒 Product launches • 🤖 AI reports • 📊 Dashboards
+</p>
 
-Then generates professional reports using Gemini AI, stores data in Google Sheets, and sends insightful summaries via email — all in one pipeline!
+<p align="center">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.12+-blue?logo=python">
+  <img alt="Streamlit" src="https://img.shields.io/badge/UI-Streamlit-orange?logo=streamlit">
+  <img alt="License" src="https://img.shields.io/github/license/your-username/competitive-intelligence-bot">
+</p>
 
-🌟 Features
-🔍 Scrape e-commerce news and products using:
+---
 
-Selenium (for news)
+## 🚀 Overview
 
-Playwright (for products)
+A fully automated competitive intelligence tool for **e-commerce analysis**, built to:
 
-🤖 Generate detailed summaries using Gemini AI
+- 🔎 Scrape **news** & **product data** from **eBay** and **Walmart**
+- 🧠 Summarize updates using **Gemini AI**
+- 📩 Email summaries to your team
+- 📊 Store results in **Google Sheets**
+- 🖥️ Visualize insights with a beautiful **Streamlit dashboard**
 
-📩 Send reports via email to team members
+---
 
-📈 Auto-update Google Sheets for data archiving
+## 🧰 Tech Stack
 
-🌐 Supports proxy and retry logic for stability and large-scale scraping
+| Category        | Tools/Frameworks                                                                 |
+|----------------|----------------------------------------------------------------------------------|
+| Core Language   | [Python 3.12+](https://www.python.org/)                                          |
+| Scraping        | [Selenium](https://www.selenium.dev/) • [Playwright](https://playwright.dev/)    |
+| AI Summary      | [Gemini AI](https://deepmind.google/technologies/gemini/)                        |
+| Email Delivery  | [Gmail API](https://developers.google.com/gmail/api)                             |
+| Data Storage    | [Google Sheets API](https://developers.google.com/sheets/api)                    |
+| Dashboard UI    | [Streamlit](https://streamlit.io/)                                               |
+| Logging         | [Rich](https://github.com/Textualize/rich)                                       |
 
-🖥️ Beautiful Streamlit dashboard for real-time visualization
+---
 
-🚀 How It Works
-mermaid
-Copy
-Edit
-graph TD
-    A[Run Script] --> B[Scrape eBay & Walmart News]
-    B --> C[Analyze with Gemini AI]
-    C --> D[Send News Report via Email]
-    D --> E[Scrape Product Listings]
-    E --> F[Update Google Sheet]
-    F --> G[Generate Product Report]
-    G --> H[Send Product Report via Email]
-🗂️ Project Structure
-bash
-Copy
-Edit
+## 📁 Project Structure
+
+```bash
 app/
 ├── dashboard/
-│   └── ui.py               # Streamlit dashboard
+│   └── ui.py                  # 📊 Streamlit dashboard
 ├── manage_sheet/
-│   ├── read_worksheet.py   # Read from Google Sheets
-│   └── write_worksheet.py  # Write to Google Sheets
+│   ├── read_worksheet.py      # 📥 Read from Google Sheets
+│   └── write_worksheet.py     # 📤 Write to Google Sheets
 ├── scraping/
 │   ├── ebay_news.py
 │   ├── walmart_news.py
 │   ├── ebay_products.py
 │   └── walmart_products.py
 ├── gemini/
-│   └── gemini_ai.py        # AI summarization
+│   └── gemini_ai.py           # 🤖 Gemini AI API integration
 ├── email/
-│   └── email_service.py    # Gmail API integration
-└── main.py                 # Entrypoint
-🧠 Tech Stack
-Tool	Purpose
-Python 3.12+	Core language
-Selenium	News scraping
-Playwright (async)	Product scraping
-Gemini AI	Report generation
-Gmail API	Email delivery
-gspread / Google API	Sheets integration
-Streamlit	UI dashboard
-Rich	Beautiful terminal logs
-
-⚙️ Setup Instructions
-Clone the repo
-
-bash
-Copy
-Edit
-git clone https://github.com/your-username/competitive-intelligence-bot.git
-cd competitive-intelligence-bot
-Set up virtual environment
-
-bash
-Copy
-Edit
-python3 -m venv env
-source env/bin/activate
-Install dependencies
-
-bash
-Copy
-Edit
-pip install -r requirements.txt
-Set up credentials
-
-.env file for:
-
-GOOGLE_SHEET_ID
-
-GEMINI_API_KEY
-
-Gmail credentials (token.json / credentials.json)
-
-Place your Google credentials in /credentials/ or /config/
-
-▶️ Run the Script
-bash
-Copy
-Edit
-python3 app/main.py
-📊 Launch Dashboard
-bash
-Copy
-Edit
-streamlit run app/dashboard/ui.py
-📬 Example Email Output
-✉️ Subject: News Summary
-“Based on the latest eBay updates, the following strategic shifts are underway...”
-
-✉️ Subject: Products Summary
-“Walmart released 5 new product lines this week. Notably...”
-
-🔐 Proxy & Retry Logic
-✅ Built-in retry mechanism and future-proofed for proxy support, enabling robust scraping of sites like Amazon, BestBuy, etc.
-
-📅 Roadmap
- eBay & Walmart scraping
-
- Gemini-based summarization
-
- Email integration
-
- Google Sheets update
-
- Streamlit UI
-
- Proxy & rotating IP support
-
- Amazon/BestBuy support
-
- Slack/Telegram bot notifications
-
-🧑‍💻 Maintained by
-Firaol Bulo
-
-Software Engineer
-
+│   └── email_service.py       # 📬 Gmail service setup
+└── main.py                    # 🧠 Entrypoint script
