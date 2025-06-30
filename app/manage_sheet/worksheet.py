@@ -5,12 +5,10 @@ from google.oauth2.service_account import Credentials
 
 dotenv.load_dotenv()
 
-SHEET_ID=os.getenv("SHEET_ID")
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
-
-def get_worksheet():
+def get_worksheet(SHEET_ID):
     creds = Credentials.from_service_account_file('automation-464318-17d2b37d86f1.json', scopes=SCOPES)
 
     client = gspread.authorize(creds)

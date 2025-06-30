@@ -1,6 +1,7 @@
 from playwright.async_api import async_playwright,Page
 import random
 import asyncio
+
 walProductListing="https://www.walmart.com/search?q=keyword"
 ebayProductListing="https://www.ebay.com/sch/i.html?_nkw=keyword"
 bestbuyProductListing="https://www.bestbuy.com/site/searchpage.jsp?"
@@ -96,3 +97,4 @@ async def scrape_ebay_products(page:Page):
             response.append([title,price,href,img])
         return response
             
+

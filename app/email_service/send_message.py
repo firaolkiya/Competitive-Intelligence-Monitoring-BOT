@@ -2,9 +2,14 @@
 import base64
 from email.message import EmailMessage
 from googleapiclient.errors import HttpError
+from manage_sheet.read_worksheet import read_rows
 from dotenv import load_dotenv
-
+import os
 load_dotenv()
+
+EMAIL_SHEET_ID =os.getenv("PRODUCT_SHEET_ID")
+PRODUCT_SHEET_ID =os.getenv("EMAIL_SHEET_ID")
+
 
 def send_message(service, sender, to, subject, body):
 
@@ -25,3 +30,13 @@ def send_message(service, sender, to, subject, body):
     except HttpError as error:
         print(f"An error occurred while sending message: {error}")
         return None
+    
+def send_mult_emails(service,sender,subject,message):
+    rows = read_rows(EMAIL_SHEET_ID)
+    for row in rows:
+        if row['status']=='active':
+            send_message(service=service,sender=sender,to=row["email"],subject=subject,body=message)
+            
+            
+    
+        

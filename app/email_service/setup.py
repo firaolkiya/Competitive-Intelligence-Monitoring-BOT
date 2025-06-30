@@ -4,7 +4,7 @@ import os
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google.oauth2.credentials import Credentials
-from listen_new_message import start_pubsub_listener
+from .listen_new_message import start_pubsub_listener
 
 from dotenv import load_dotenv
 

@@ -5,7 +5,7 @@ from google.oauth2.service_account import Credentials
 
 dotenv.load_dotenv()
 
-SHEET_ID=os.getenv("SHEET_ID")
+SHEET_ID=os.getenv("PRODUCT_PRODSHEET_ID")
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
